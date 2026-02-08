@@ -2,35 +2,30 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Event</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <div class="nav">
-      <div class="brand">✨ ConfessSite</div>
-      <div class="navlinks">
-        <a class="pill" href="/">Beranda</a>
-        <a class="pill" href="/confession.html">Confession</a>
-        <a class="pill active" href="/event.html">Event</a>
+    <div style="display:flex; gap:10px; align-items:center; justify-content:space-between;">
+      <div>
+        <h1 class="title">Event</h1>
+        <p class="sub">Daftar event yang bisa dilihat semua orang.</p>
       </div>
+      <a class="btn secondary" href="index.html">← Beranda</a>
     </div>
 
-    <div class="hero">
-      <h1>Event 📅</h1>
-      <p>Halaman event. Kamu bisa isi konten event di sini (list, jadwal, poster, dll).</p>
-    </div>
-
-    <div class="card" style="margin-top:16px;">
-      <h2>Contoh struktur event</h2>
-      <p class="muted">
-        - Nama event<br/>
-        - Tanggal & jam<br/>
-        - Lokasi / link<br/>
-        - Deskripsi<br/>
-      </p>
+    <div class="card">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <h2 style="margin:0;">📅 Daftar Event</h2>
+        <button id="refreshBtn" class="btn secondary">Refresh</button>
+      </div>
+      <div id="list" class="list" style="margin-top:12px;"></div>
+      <small>Catatan: untuk menghindari spam, contoh ini hanya public read. Kalau mau event bisa ditambah lewat dashboard Supabase (Table Editor) atau bikin admin panel.</small>
     </div>
   </div>
+
+  <script type="module" src="js/event.js"></script>
 </body>
 </html>
