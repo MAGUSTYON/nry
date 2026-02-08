@@ -2,62 +2,64 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Confession</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <div class="nav">
-      <div class="brand">✨ ConfessSite</div>
-      <div class="navlinks">
-        <a class="pill" href="/">Beranda</a>
-        <a class="pill active" href="/confession.html">Confession</a>
-        <a class="pill" href="/event.html">Event</a>
+    <div style="display:flex; gap:10px; align-items:center; justify-content:space-between;">
+      <div>
+        <h1 class="title">Confession</h1>
+        <p class="sub">Kirim confession dan lihat kiriman orang lain.</p>
+      </div>
+      <a class="btn secondary" href="index.html">← Beranda</a>
+    </div>
+
+    <div class="card">
+      <h2>📝 Tulis Confession</h2>
+      <div class="row">
+        <div>
+          <label>Nama (opsional)</label>
+          <input id="name" placeholder="Kosongkan untuk anonim" />
+          <small>Kalau kosong, akan tampil sebagai <b>Anonim</b>.</small>
+        </div>
+
+        <div>
+          <label>Link Lagu Spotify (opsional)</label>
+          <input id="spotify_url" placeholder="https://open.spotify.com/track/..." />
+          <small>Tempel link track Spotify untuk muncul player embed.</small>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <label>Message</label>
+            <textarea id="message" placeholder="Tulis pesan kamu..." required></textarea>
+          </div>
+          <div>
+            <label>Impression (opsional)</label>
+            <textarea id="impression" placeholder="Kesan/impresi kamu..."></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button id="submitBtn" class="btn">Kirim</button>
+          <span id="status" class="badge" style="display:none;"></span>
+        </div>
       </div>
     </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Kirim Confession</h2>
-        <div class="muted">Nama bisa anonim, lagu pakai Spotify Embed.</div>
+    <hr />
 
-        <form id="confessForm">
-          <label>Nama</label>
-          <input id="name" placeholder="Misal: Tio (atau kosong kalau anonim)" maxlength="50" />
-
-          <div class="checkbox">
-            <input type="checkbox" id="anonymous" />
-            <span>Anonimkan nama</span>
-          </div>
-
-          <label>Link Lagu Spotify (opsional)</label>
-          <input id="spotifyUrl" placeholder="https://open.spotify.com/track/..." />
-
-          <label>Message</label>
-          <textarea id="message" placeholder="Tulis confession kamu..." required maxlength="1000"></textarea>
-
-          <label>Impression (opsional)</label>
-          <textarea id="impression" placeholder="Kesan / pesan singkat..." maxlength="500"></textarea>
-
-          <button id="submitBtn" type="submit">Kirim</button>
-          <div id="status" class="small"></div>
-        </form>
+    <div class="card">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <h2 style="margin:0;">📬 Feed Confession</h2>
+        <button id="refreshBtn" class="btn secondary">Refresh</button>
       </div>
-
-      <div class="card">
-        <h2>Semua Confession</h2>
-        <div class="row" style="justify-content: space-between;">
-          <div class="muted">Terbaru di atas</div>
-          <button id="refreshBtn" type="button" style="width:auto; padding:10px 12px;">Refresh</button>
-        </div>
-        <div class="hr"></div>
-
-        <div id="list" class="list"></div>
-      </div>
+      <div id="list" class="list" style="margin-top:12px;"></div>
     </div>
   </div>
 
-  <script src="/app.js"></script>
+  <script type="module" src="js/confession.js"></script>
 </body>
 </html>
