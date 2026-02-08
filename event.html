@@ -6,6 +6,18 @@
   <title>Event • New Resident Yogyakarta</title>
 
   <link rel="stylesheet" href="./styles.css" />
+  <style>
+  .eventBanner{ width:100%; border-radius:16px; border:1px solid rgba(255,255,255,.14); display:block; }
+  .eventMeta{ margin-top:10px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+  .eventTitle{ font-size:16px; font-weight:800; }
+  .eventDates{ color: var(--muted); font-size:12px; margin-top:2px; }
+  .eventDesc{ margin-top:10px; white-space:pre-wrap; line-height:1.6; display:none; }
+  .eventDesc.show{ display:block; }
+  .eventActions{ margin-top:10px; display:flex; gap:8px; justify-content:flex-end; }
+  .eventBtn{ padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; cursor:pointer; }
+  .eventBtn:hover{ background:rgba(255,255,255,.10); }
+</style>
+
 </head>
 
 <body>
@@ -37,3 +49,4 @@
   <script type="module" src="./event.js"></script>
 </body>
 </html>
+
