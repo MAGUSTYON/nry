@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Confession</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">✨ ConfessSite</div>
+      <div class="navlinks">
+        <a class="pill" href="/">Beranda</a>
+        <a class="pill active" href="/confession.html">Confession</a>
+        <a class="pill" href="/event.html">Event</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Kirim Confession</h2>
+        <div class="muted">Nama bisa anonim, lagu pakai Spotify Embed.</div>
+
+        <form id="confessForm">
+          <label>Nama</label>
+          <input id="name" placeholder="Misal: Tio (atau kosong kalau anonim)" maxlength="50" />
+
+          <div class="checkbox">
+            <input type="checkbox" id="anonymous" />
+            <span>Anonimkan nama</span>
+          </div>
+
+          <label>Link Lagu Spotify (opsional)</label>
+          <input id="spotifyUrl" placeholder="https://open.spotify.com/track/..." />
+
+          <label>Message</label>
+          <textarea id="message" placeholder="Tulis confession kamu..." required maxlength="1000"></textarea>
+
+          <label>Impression (opsional)</label>
+          <textarea id="impression" placeholder="Kesan / pesan singkat..." maxlength="500"></textarea>
+
+          <button id="submitBtn" type="submit">Kirim</button>
+          <div id="status" class="small"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Semua Confession</h2>
+        <div class="row" style="justify-content: space-between;">
+          <div class="muted">Terbaru di atas</div>
+          <button id="refreshBtn" type="button" style="width:auto; padding:10px 12px;">Refresh</button>
+        </div>
+        <div class="hr"></div>
+
+        <div id="list" class="list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
