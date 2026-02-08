@@ -3,100 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Panel • New Resident Yogyakarta</title>
+  <title>Admin • New Resident Yogyakarta</title>
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 
   <style>
-    .adminWrap{
+    /* pastikan login panel di atas apa pun */
+    #loginSection{
+      position: relative;
+      z-index: 9999;
+    }
+    #loginBtn{
+      pointer-events: auto !important;
+      opacity: 1 !important;
+    }
+    .wrap{
       max-width: 980px;
       margin: 0 auto;
       padding: 22px 18px 46px;
     }
-    .logoutBtn{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      color: #fff;
-    }
-    .split{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-    @media (min-width:900px){
-      .split{ grid-template-columns: 1fr 1fr; }
-    }
   </style>
 </head>
-
 <body>
-
-  <div class="adminWrap">
+  <div class="wrap">
 
     <!-- LOGIN -->
     <div id="loginSection" class="card">
       <h2>Admin Login</h2>
-
       <div class="row">
-        <input id="email" placeholder="Email admin" />
-        <input id="password" type="password" placeholder="Password" />
-        <button id="loginBtn" class="btn">Login</button>
+        <input id="email" placeholder="Email admin" autocomplete="username" />
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+
+        <!-- WAJIB type=button -->
+        <button id="loginBtn" type="button" class="btn">Login</button>
+
         <small id="loginStatus"></small>
       </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- PANEL -->
     <div id="adminPanel" style="display:none;">
-
-      <div class="card" style="margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h2 style="margin:0;">Admin Panel</h2>
-          <button id="logoutBtn" class="btn logoutBtn">Logout</button>
-        </div>
+      <div class="card" style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">Admin Panel</h2>
+        <button id="logoutBtn" type="button" class="btn secondary">Logout</button>
       </div>
 
-      <div class="split">
-
-        <!-- CONFESSIONS -->
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="margin:0;">Confessions</h3>
-            <button id="refreshConfBtn" class="btn secondary">Refresh</button>
-          </div>
-          <div id="confessionsList" class="list" style="margin-top:12px;"></div>
-        </div>
-
-        <!-- EVENTS -->
-        <div class="card">
-          <h3>Tambah Event</h3>
-
-          <div class="row">
-            <input id="eventTitle" placeholder="Judul event" />
-
-            <div class="grid2">
-              <input id="eventStart" type="date" />
-              <input id="eventEnd" type="date" />
-            </div>
-
-            <textarea id="eventDesc" placeholder="Deskripsi event"></textarea>
-
-            <input id="eventBanner" type="file" accept="image/*" />
-
-            <button id="createEventBtn" class="btn">Tambah Event</button>
-            <small id="eventStatus"></small>
-          </div>
-
-          <hr/>
-
-          <h3>Daftar Event</h3>
-          <div id="eventsList" class="list"></div>
-        </div>
-
+      <div class="card">
+        <small>Kalau ini muncul berarti login sukses.</small>
       </div>
     </div>
 
   </div>
 
-  <script type="module" src="admin.js"></script>
+  <!-- TES KLIK (kalau ini gak jalan, berarti overlay/disabled) -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const b = document.getElementById("loginBtn");
+      b.addEventListener("click", () => {
+        console.log("LOGIN BUTTON CLICKED ✅");
+      });
+    });
+  </script>
+
+  <script type="module" src="js/admin.js"></script>
 </body>
 </html>
