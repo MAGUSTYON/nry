@@ -4,8 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>New Resident Yogyakarta</title>
+
   <link rel="stylesheet" href="styles.css" />
+
   <style>
+    /* Beranda tetap "web menu" */
     .menuGrid{
       display:grid;
       grid-template-columns: 1fr;
@@ -13,7 +16,9 @@
     }
     @media (min-width: 760px){
       .menuGrid{ grid-template-columns: 1fr 1fr; }
+      .menuGrid.three{ grid-template-columns: 1fr 1fr 1fr; }
     }
+
     .menuCard{
       display:flex;
       flex-direction:column;
@@ -22,135 +27,98 @@
     }
     .menuCard h2{ margin:0; }
     .menuCard p{ margin:0; color: var(--muted); line-height:1.5; }
-    .section{ margin-top: 16px; }
-    .section h2{ margin: 0 0 10px; }
+
+    .sectionTitle{ margin:0 0 10px; }
+    .sectionSub{ margin:0 0 14px; color: var(--muted); }
+
     .prologue{
       white-space: pre-wrap;
-      line-height: 1.7;
+      line-height: 1.75;
       color: rgba(255,255,255,.88);
     }
-    .charGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 760px){
-      .charGrid{ grid-template-columns: 1fr 1fr; }
-    }
-    .charItem{
+
+    .buyRow{
       display:flex;
-      gap: 12px;
-      align-items:flex-start;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
     }
-    .avatar{
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      flex: 0 0 auto;
-    }
-    .charMeta b{ display:block; margin-bottom: 4px; }
   </style>
 </head>
 
 <body>
   <div class="container">
 
+    <!-- Header -->
     <div class="topbar">
       <div>
         <p class="kicker">NEW RESIDENT YOGYAKARTA</p>
         <h1 class="title">Beranda</h1>
-        <p class="sub">Pilih menu, baca prologue, kenalan sama karakter, dan kalau mau… ada link beli juga.</p>
+        <p class="sub">
+          Pilih menu di bawah. Kamu juga bisa baca prologue, lihat profil karakter, dan (kalau mau) beli novel AU-nya.
+        </p>
       </div>
     </div>
 
-    <!-- MENU UTAMA (tetap konsep web) -->
-    <div class="menuGrid">
+    <!-- Menu utama -->
+    <div class="menuGrid three">
+
       <a class="card menuCard" href="confession.html">
         <h2>💌 Confession</h2>
-        <p>Kirim confession (boleh anonim), tempel link lagu Spotify, dan baca confession orang lain.</p>
+        <p>Kirim confession (boleh anonim), tempel link lagu Spotify, dan semua orang bisa baca.</p>
         <div class="badge" style="width:max-content;">Buka Confession →</div>
       </a>
 
       <a class="card menuCard" href="event.html">
         <h2>📅 Event</h2>
-        <p>Lihat event atau pengumuman yang berkaitan dengan New Resident Yogyakarta.</p>
+        <p>Lihat event / pengumuman yang ada di dunia New Resident Yogyakarta.</p>
         <div class="badge" style="width:max-content;">Buka Event →</div>
       </a>
+
+      <a class="card menuCard" href="profiles.html">
+        <h2>🧑‍🤝‍🧑 Profil Karakter</h2>
+        <p>Daftar karakter (banyak). Ada fitur search biar gampang nyari.</p>
+        <div class="badge" style="width:max-content;">Buka Profil →</div>
+      </a>
+
     </div>
 
     <div class="hr"></div>
 
-    <!-- PROLOGUE -->
-    <div class="card section">
-      <h2>Prologue</h2>
+    <!-- Prologue -->
+    <div class="card">
+      <h2 class="sectionTitle">Prologue</h2>
+      <p class="sectionSub">Pembuka singkat untuk ngebangun suasana.</p>
+
       <div class="prologue">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
 Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+
+Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper.
+Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue.
       </div>
+
       <div style="margin-top:12px;">
-        <small>*(Nanti tinggal kamu ganti teks prologue aslinya di sini.)*</small>
+
       </div>
     </div>
 
     <div class="hr"></div>
 
-    <!-- PROFIL KARAKTER -->
-    <div class="card section">
-      <h2>Profil Karakter</h2>
-      <p class="sub" style="margin-top:0;">Ringkas aja dulu. Nanti bisa ditambah detail / foto / quotes.</p>
-
-      <div class="charGrid">
-        <div class="card charItem" style="box-shadow:none;">
-          <div class="avatar"></div>
-          <div class="charMeta">
-            <b>Karakter 01</b>
-            <small>Tagline: “…”</small>
-            <small>Deskripsi singkat (2–3 kalimat).</small>
-          </div>
+    <!-- Link beli (tetap konsep web: card sederhana) -->
+    <div class="card">
+      <div class="buyRow">
+        <div>
+          <h2 class="sectionTitle" style="margin-bottom:6px;">🛒 Beli Novel AU</h2>
+          <small>Taruh link toko di sini (Shopee/Tokopedia/Gramedia/dll).</small>
         </div>
 
-        <div class="card charItem" style="box-shadow:none;">
-          <div class="avatar"></div>
-          <div class="charMeta">
-            <b>Karakter 02</b>
-            <small>Tagline: “…”</small>
-            <small>Deskripsi singkat (2–3 kalimat).</small>
-          </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <!-- GANTI href -->
+          <a class="btn" href="https://example.com" target="_blank" rel="noreferrer">Beli Sekarang</a>
+          <a class="btn secondary" href="https://example.com" target="_blank" rel="noreferrer">Lihat Info</a>
         </div>
-
-        <div class="card charItem" style="box-shadow:none;">
-          <div class="avatar"></div>
-          <div class="charMeta">
-            <b>Karakter 03</b>
-            <small>Tagline: “…”</small>
-            <small>Deskripsi singkat (2–3 kalimat).</small>
-          </div>
-        </div>
-
-        <div class="card charItem" style="box-shadow:none;">
-          <div class="avatar"></div>
-          <div class="charMeta">
-            <b>Karakter 04</b>
-            <small>Tagline: “…”</small>
-            <small>Deskripsi singkat (2–3 kalimat).</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hr"></div>
-
-    <!-- LINK BELI (tetap web: taruh bawah) -->
-    <div class="card section" style="display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-      <div>
-        <h2 style="margin:0 0 6px;">🛒 Beli Novel</h2>
-        <small>Kalau kamu mau baca versi lengkapnya, linknya di sini.</small>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="https://example.com" target="_blank" rel="noreferrer">Beli Sekarang</a>
-        <a class="btn secondary" href="https://example.com" target="_blank" rel="noreferrer">Lihat Info</a>
       </div>
     </div>
 
