@@ -1,40 +1,83 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin</title>
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-      <h1 class="title">Admin Panel</h1>
-      <a class="btn secondary" href="index.html">← Beranda</a>
-    </div>
+import { supabase } from "./supabaseClient.js";
 
+const elEmail = document.getElementById("email");
+const elPassword = document.getElementById("password");
+const elLogin = document.getElementById("loginBtn");
+const elLogout = document.getElementById("logoutBtn");
+const elStatus = document.getElementById("status");
+const elList = document.getElementById("list");
+const elRefresh = document.getElementById("refreshBtn");
+
+function setStatus(t) { elStatus.textContent = t; }
+function escapeHtml(str="") {
+  return str.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+            .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+async function login() {
+  setStatus("Logging in...");
+  const { error } = await supabase.auth.signInWithPassword({
+    email: elEmail.value.trim(),
+    password: elPassword.value
+  });
+  if (error) return setStatus("Login gagal: " + error.message);
+  setStatus("Login sukses ✅");
+  await loadConfessions();
+}
+
+async function logout() {
+  await supabase.auth.signOut();
+  setStatus("Logout.");
+}
+
+function renderItem(item) {
+  const name = item.name?.trim() ? escapeHtml(item.name.trim()) : "Anonim";
+  const created = new Date(item.created_at).toLocaleString("id-ID");
+  const msg = escapeHtml(item.message || "");
+  return `
     <div class="card">
-      <h2>Login Admin</h2>
-      <div class="row">
-        <input id="email" placeholder="email admin" />
-        <input id="password" type="password" placeholder="password" />
-        <button id="loginBtn" class="btn">Login</button>
-        <button id="logoutBtn" class="btn secondary">Logout</button>
-        <small id="status"></small>
+      <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+        <div><b>${name}</b> <span class="badge">${created}</span></div>
+        <button class="btn secondary" data-del="${item.id}">Delete</button>
       </div>
+      <p style="white-space:pre-wrap; margin:10px 0 0;">${msg}</p>
     </div>
+  `;
+}
 
-    <hr />
+async function loadConfessions() {
+  elList.innerHTML = "<small>Loading...</small>";
+  const { data, error } = await supabase
+    .from("confessions")
+    .select("id, created_at, name, message")
+    .order("created_at", { ascending: false })
+    .limit(50);
 
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="margin:0;">Confessions</h2>
-        <button id="refreshBtn" class="btn secondary">Refresh</button>
-      </div>
-      <div id="list" class="list" style="margin-top:12px;"></div>
-    </div>
-  </div>
+  if (error) {
+    elList.innerHTML = `<small>Gagal load: ${escapeHtml(error.message)}</small>`;
+    return;
+  }
 
-  <script type="module" src="admin.js"></script>
-</body>
-</html>
+  elList.innerHTML = (data || []).map(renderItem).join("") || "<small>Kosong.</small>";
+
+  elList.querySelectorAll("[data-del]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.getAttribute("data-del");
+      if (!confirm("Yakin hapus confession ini?")) return;
+
+      const { error: delErr } = await supabase.from("confessions").delete().eq("id", id);
+      if (delErr) return alert("Gagal delete: " + delErr.message);
+
+      await loadConfessions();
+    });
+  });
+}
+
+elLogin.addEventListener("click", login);
+elLogout.addEventListener("click", logout);
+elRefresh.addEventListener("click", loadConfessions);
+
+// auto load kalau sudah login
+supabase.auth.getSession().then(({ data }) => {
+  if (data.session) loadConfessions();
+});
