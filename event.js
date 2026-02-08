@@ -1,50 +1,73 @@
 import { supabase } from "./supabaseClient.js";
 
-const elList = document.getElementById("list");
-const elRefresh = document.getElementById("refreshBtn");
+const list = document.getElementById("list");
+const statusEl = document.getElementById("status");
+const refreshBtn = document.getElementById("refreshBtn");
 
-function escapeHtml(str = "") {
-  return str
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+const esc = (s="") =>
+  String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+
+function fmtDate(d){
+  if (!d) return "-";
+  try{
+    return new Date(d).toLocaleDateString("id-ID");
+  }catch{
+    return d;
+  }
 }
 
-function renderItem(item) {
-  const title = escapeHtml(item.title || "");
-  const date = item.event_date ? new Date(item.event_date).toLocaleDateString("id-ID") : "-";
-  const loc = escapeHtml(item.location || "-");
-  const desc = escapeHtml(item.description || "");
+function renderEvent(e){
+  const title = esc(e.title || "");
+  const desc = e.description ? esc(e.description) : "";
+  const start = fmtDate(e.start_date);
+  const end = fmtDate(e.end_date);
+
+  const banner = e.banner_url
+    ? `<div style="margin-top:10px;">
+         <img src="${e.banner_url}" alt="" style="width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.14);" />
+       </div>`
+    : "";
 
   return `
     <div class="card">
-      <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
-        <b>${title}</b>
-        <span class="badge">${date}</span>
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+        <div>
+          <b style="font-size:16px;">${title}</b><br/>
+          <small>${esc(start)} → ${esc(end)}</small>
+        </div>
       </div>
-      <p style="margin:10px 0 0; color:#b8b8c7;"><b>Lokasi:</b> ${loc}</p>
-      ${desc ? `<p style="white-space:pre-wrap; margin:10px 0 0;">${desc}</p>` : ""}
+      ${desc ? `<p style="white-space:pre-wrap;margin:10px 0 0;line-height:1.6;">${desc}</p>` : ""}
+      ${banner}
     </div>
   `;
 }
 
-async function loadEvents() {
-  elList.innerHTML = `<small>Loading...</small>`;
+async function loadEvents(){
+  statusEl.textContent = "Loading...";
+  list.innerHTML = "";
+
   const { data, error } = await supabase
     .from("events")
-    .select("*")
-    .order("event_date", { ascending: true })
-    .limit(100);
+    .select("id, created_at, title, description, banner_url, start_date, end_date")
+    .order("start_date", { ascending: false, nullsFirst: false })
+    .order("created_at", { ascending: false });
 
-  if (error) {
-    elList.innerHTML = `<small>Gagal load: ${escapeHtml(error.message)}</small>`;
+  if (error){
+    statusEl.textContent = "Gagal load: " + error.message;
+    list.innerHTML = `<div class="card"><small>${esc(error.message)}</small></div>`;
     return;
   }
 
-  elList.innerHTML = data.map(renderItem).join("") || `<small>Belum ada event.</small>`;
+  if (!data || data.length === 0){
+    statusEl.textContent = "Belum ada event.";
+    list.innerHTML = `<div class="card"><small>Belum ada event.</small></div>`;
+    return;
+  }
+
+  statusEl.textContent = `${data.length} event ditampilkan`;
+  list.innerHTML = data.map(renderEvent).join("");
 }
 
-elRefresh.addEventListener("click", loadEvents);
+refreshBtn.addEventListener("click", loadEvents);
+
 loadEvents();
