@@ -134,3 +134,4 @@ fab.addEventListener("click", () => {
 closeModal.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
+modal.classList.add("hidden");
