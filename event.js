@@ -18,9 +18,40 @@ function fmtDate(d){
 
 function renderEvent(e){
   const title = esc(e.title || "");
-  const desc = e.description ? esc(e.description) : "";
+  const desc  = e.description ? esc(e.description) : "";
   const start = fmtDate(e.start_date);
-  const end = fmtDate(e.end_date);
+  const end   = fmtDate(e.end_date);
+
+  const banner = e.banner_url
+    ? `<img class="eventBanner" src="${e.banner_url}" alt="">`
+    : "";
+
+  const hasDesc = !!desc;
+
+  return `
+    <div class="card" data-event>
+      ${banner}
+
+      <div class="eventMeta">
+        <div>
+          <div class="eventTitle">${title}</div>
+          <div class="eventDates">${esc(start)} → ${esc(end)}</div>
+        </div>
+
+        ${hasDesc ? `<span style="color:var(--muted);font-size:12px;">Klik detail</span>` : ""}
+      </div>
+
+      ${hasDesc ? `<div class="eventDesc" data-desc>${desc}</div>` : ""}
+
+      ${hasDesc ? `
+        <div class="eventActions">
+          <button class="eventBtn" type="button" data-toggle> Lihat detail </button>
+        </div>
+      ` : ""}
+    </div>
+  `;
+}
+
 
   const banner = e.banner_url
     ? `<div style="margin-top:10px;">
