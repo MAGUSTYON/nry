@@ -3,29 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Event</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Event • New Resident Yogyakarta</title>
+
+  <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
   <div class="container">
-    <div style="display:flex; gap:10px; align-items:center; justify-content:space-between;">
+
+    <div class="topbar">
       <div>
+        <p class="kicker">NEW RESIDENT YOGYAKARTA</p>
         <h1 class="title">Event</h1>
-        <p class="sub">Daftar event yang bisa dilihat semua orang.</p>
+        <p class="sub">Daftar event yang sedang berlangsung.</p>
       </div>
-      <a class="btn secondary" href="index.html">← Beranda</a>
+      <a class="btn secondary" href="./index.html">← Beranda</a>
     </div>
 
-    <div class="card">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <h2 style="margin:0;">📅 Daftar Event</h2>
-        <button id="refreshBtn" class="btn secondary">Refresh</button>
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h2 style="margin:0;">🗓️ Daftar Event</h2>
+        <small id="status" style="display:block;margin-top:6px;color:var(--muted);"></small>
       </div>
-      <div id="list" class="list" style="margin-top:12px;"></div>
-      <small>Catatan: untuk menghindari spam, contoh ini hanya public read. Kalau mau event bisa ditambah lewat dashboard Supabase (Table Editor) atau bikin admin panel.</small>
+      <button id="refreshBtn" class="btn secondary" type="button">Refresh</button>
     </div>
+
+    <div class="hr"></div>
+
+    <div id="list" class="list"></div>
+
   </div>
 
-  <script type="module" src="js/event.js"></script>
+  <script type="module" src="./event.js"></script>
 </body>
 </html>
