@@ -1,4 +1,4 @@
-import { supabase } from "./supabaseClient.js";
+import { supabase } from "supabaseClient.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   const loginSection = document.getElementById("loginSection");
