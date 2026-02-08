@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
@@ -34,6 +34,47 @@
       <div id="list" class="list" style="margin-top:12px;"></div>
     </div>
   </div>
+<hr />
+
+<div class="card">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2 style="margin:0;">Events</h2>
+    <button id="refreshEventsBtn" class="btn secondary">Refresh</button>
+  </div>
+
+  <div class="row" style="margin-top:12px;">
+    <div>
+      <label>Banner (gambar)</label>
+      <input id="eventBanner" type="file" accept="image/*" />
+      <small>Disarankan rasio 16:9 atau 3:2.</small>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label>Judul</label>
+        <input id="eventTitle" placeholder="Judul event" />
+      </div>
+      <div>
+        <label>Periode</label>
+        <div class="grid2" style="grid-template-columns:1fr 1fr;">
+          <input id="eventStart" type="date" />
+          <input id="eventEnd" type="date" />
+        </div>
+        <small>Kalau 1 hari saja, isi start & end sama.</small>
+      </div>
+    </div>
+
+    <div>
+      <label>Deskripsi</label>
+      <textarea id="eventDesc" placeholder="Deskripsi event..."></textarea>
+    </div>
+
+    <button id="createEventBtn" class="btn">Tambah Event</button>
+    <small id="eventStatus"></small>
+  </div>
+
+  <div id="eventsList" class="list" style="margin-top:12px;"></div>
+</div>
 
   <script type="module" src="admin.js"></script>
 </body>
