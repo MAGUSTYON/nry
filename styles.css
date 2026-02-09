@@ -1,208 +1,232 @@
-/* ===============================
-   COLOR SYSTEM (CONSISTENT)
-=============================== */
+/* =========================
+   FONTS
+   (Pastikan kamu sudah pasang link Google Fonts di HTML)
+========================= */
 :root{
-  --bg-dark: #0b0c14;
-  --bg-mid: #12132a;
-  --glass: rgba(255,255,255,.06);
+  --bg-0: #0b0c14;
+  --bg-1: #12132a;
 
-  --pink-soft: #f2a1b3;
-  --pink-muted: #d47aa0;
+  --pink: #f2a1b3;
+  --pink-2: #d47aa0;
 
-  --text-main: #ececf3;
-  --text-muted: #a7a7c0;
+  --text: #ececf3;
+  --muted: #a7a7c0;
 
-  --border-soft: rgba(255,182,193,.18);
+  --glass-1: rgba(255,255,255,.08);
+  --glass-2: rgba(255,255,255,.03);
+
+  --border: rgba(255,182,193,.18);
+  --border-2: rgba(255,255,255,.14);
+
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
 }
 
-/* ===============================
-   GLOBAL RESET
-=============================== */
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* =========================
+   RESET
+========================= */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html, body{ min-height:100%; }
 
-html, body{
-  min-height: 100%;
-}
-
+/* =========================
+   BACKGROUND (NO STRIP)
+========================= */
 body{
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--text-main);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--text);
+  line-height: 1.65;
 
   background:
-    radial-gradient(
-      1000px 500px at 10% -10%,
-      rgba(242,161,179,.08),
-      transparent 40%
-    ),
-    linear-gradient(
-      180deg,
-      var(--bg-dark) 0%,
-      var(--bg-mid) 50%,
-      var(--bg-dark) 100%
-    );
+    radial-gradient(1100px 520px at 12% -12%, rgba(242,161,179,.09), transparent 42%),
+    radial-gradient(900px 520px at 88% 112%, rgba(242,161,179,.06), transparent 44%),
+    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 52%, var(--bg-0) 100%);
 
-  line-height: 1.6;
+  background-attachment: fixed;
 }
 
-/* ===============================
+/* Pastikan container/section gak bikin background tambahan */
+.container, .wrap, main, section, header, footer{
+  background: transparent;
+}
+
+/* =========================
    LAYOUT
-=============================== */
-.container,
-.wrap{
+========================= */
+.container, .wrap{
   max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 18px 64px;
+  padding: 24px 18px 70px;
 }
 
 .grid{
-  display: grid;
+  display:grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
 .grid2{
-  display: grid;
+  display:grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-@media (min-width: 900px){
-  .grid{
-    grid-template-columns: 1fr 1fr;
-  }
+@media(min-width: 900px){
+  .grid{ grid-template-columns: 1fr 1fr; }
 }
 
-/* ===============================
-   HEADER / TOPBAR
-=============================== */
-.topbar{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
+/* =========================
+   STICKY HEADER (MENU)
+========================= */
+.siteHeader{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 0;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(11,12,20,.85), rgba(11,12,20,.35));
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.siteHeader .inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap: 12px;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap: 2px;
 }
 
 .kicker{
-  letter-spacing: .2em;
   font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
+  letter-spacing: .24em;
+  color: var(--muted);
 }
 
+.brandTitle{
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--pink);
+  text-shadow: 0 0 18px rgba(242,161,179,.25);
+}
+
+/* =========================
+   TITLES
+========================= */
 .title{
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--pink-soft);
+  font-family: "Playfair Display", serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--pink);
   text-shadow: 0 0 18px rgba(242,161,179,.25);
 }
 
 .sub{
-  color: var(--text-muted);
-  max-width: 520px;
+  color: var(--muted);
+  margin-top: 6px;
+  max-width: 620px;
 }
 
-/* ===============================
-   CARD (GLASS, NO PINK BLOCK)
-=============================== */
-.card{
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,.07),
-    rgba(255,255,255,.02)
-  );
-  border: 1px solid var(--border-soft);
-  border-radius: 22px;
-  padding: 18px;
-  backdrop-filter: blur(14px);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-/* ===============================
-   TEXT
-=============================== */
-h1, h2, h3{
-  color: var(--pink-soft);
-  font-weight: 800;
-  margin-bottom: 6px;
+h1,h2,h3{
+  font-family: "Playfair Display", serif;
+  color: var(--pink);
+  font-weight: 700;
 }
 
 h2{ font-size: 22px; }
 h3{ font-size: 18px; }
 
-p{
-  margin-top: 8px;
+/* =========================
+   CARD (GLASS)
+========================= */
+.card{
+  background: linear-gradient(180deg, var(--glass-1), var(--glass-2));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
 }
 
-small{
-  color: var(--text-muted);
+.hr{
+  height: 1px;
+  background: rgba(255,255,255,.09);
+  margin: 20px 0;
 }
 
-/* ===============================
+.list{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+}
+
+/* =========================
    BUTTONS
-=============================== */
+========================= */
 .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 8px;
   padding: 10px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.16);
   background: rgba(255,255,255,.06);
-  color: var(--text-main);
-  cursor: pointer;
+  color: var(--text);
   font-weight: 600;
+  cursor: pointer;
   transition: .2s ease;
+  text-decoration:none;
+  user-select:none;
 }
 
 .btn:hover{
-  background: rgba(255,255,255,.1);
-}
-
-.btn.primary{
-  background: linear-gradient(
-    135deg,
-    var(--pink-soft),
-    var(--pink-muted)
-  );
-  color: #1b0b12;
-  border: none;
-  box-shadow: 0 8px 24px rgba(242,161,179,.35);
-}
-
-.btn.primary:hover{
+  background: rgba(255,255,255,.10);
   transform: translateY(-1px);
-  box-shadow: 0 14px 36px rgba(242,161,179,.45);
 }
 
 .btn.secondary{
   background: rgba(255,255,255,.04);
 }
 
-/* ===============================
-   FORM
-=============================== */
+.btn.primary{
+  border: none;
+  color: #1b0b12;
+  background: linear-gradient(135deg, var(--pink), var(--pink-2));
+  box-shadow: 0 10px 28px rgba(242,161,179,.35);
+}
+
+.btn.primary:hover{
+  box-shadow: 0 14px 36px rgba(242,161,179,.45);
+}
+
+/* =========================
+   FORMS
+========================= */
 .row{
-  display: flex;
-  flex-direction: column;
+  display:flex;
+  flex-direction:column;
   gap: 10px;
 }
 
-input, textarea{
+input, textarea, select{
+  width: 100%;
   background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.14);
+  border: 1px solid var(--border-2);
   border-radius: 14px;
   padding: 12px 14px;
-  color: var(--text-main);
+  color: var(--text);
+  outline: none;
 }
 
-input::placeholder,
-textarea::placeholder{
-  color: var(--text-muted);
+input::placeholder, textarea::placeholder{
+  color: rgba(167,167,192,.75);
 }
 
 textarea{
@@ -210,21 +234,33 @@ textarea{
   resize: vertical;
 }
 
-/* ===============================
-   EVENT CARD (PUBLIC)
-=============================== */
+/* =========================
+   TOPBAR (PAGE HEADER)
+========================= */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 16px;
+  margin: 18px 0 22px;
+}
+
+/* =========================
+   EVENT UI (PUBLIC)
+========================= */
 .eventBanner{
-  width: 100%;
+  width:100%;
+  display:block;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,.14);
-  display: block;
 }
 
 .eventMeta{
   margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
+  display:flex;
+  justify-content:space-between;
   gap: 10px;
+  align-items:flex-start;
 }
 
 .eventTitle{
@@ -233,24 +269,25 @@ textarea{
 }
 
 .eventDates{
+  margin-top: 2px;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
 .eventDesc{
   margin-top: 12px;
   white-space: pre-wrap;
-  display: none;
+  display:none;
 }
 
 .eventDesc.show{
-  display: block;
+  display:block;
 }
 
 .eventActions{
   margin-top: 12px;
-  display: flex;
-  justify-content: flex-end;
+  display:flex;
+  justify-content:flex-end;
 }
 
 .eventBtn{
@@ -258,58 +295,25 @@ textarea{
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.06);
-  color: var(--text-main);
-  cursor: pointer;
+  color: var(--text);
+  cursor:pointer;
 }
 
-/* ===============================
-   LIST & SEPARATOR
-=============================== */
-.list{
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.hr{
-  height: 1px;
-  background: rgba(255,255,255,.08);
-  margin: 20px 0;
-}
-
-/* ===============================
+/* =========================
    FOOTER
-=============================== */
+========================= */
 footer{
-  text-align: center;
   margin-top: 60px;
-  color: var(--text-muted);
+  text-align:center;
+  color: var(--muted);
   font-size: 13px;
 }
 
-
-/* ===== FORCE BACKGROUND CONSISTENT (OVERRIDE OLD) ===== */
-html, body {
-  background: none !important;
-}
-
-body{
-  background:
-    radial-gradient(1000px 500px at 10% -10%, rgba(242,161,179,.08), transparent 40%),
-    radial-gradient(900px 500px at 90% 110%, rgba(242,161,179,.06), transparent 45%),
-    linear-gradient(180deg, #0b0c14 0%, #12132a 50%, #0b0c14 100%) !important;
-  background-attachment: fixed !important;
-}
-
-/* Matikan background yang biasanya bikin "strip" */
-.container, .wrap, section, main, header, footer, .card {
-  background-image: none !important;
-}
-
-/* Kalau kamu punya overlay global */
-body::before, body::after,
-.container::before, .container::after,
-.wrap::before, .wrap::after{
-  background: none !important;
-  content: none !important;
+/* =========================
+   MOBILE POLISH
+========================= */
+@media(max-width: 520px){
+  .title{ font-size: 34px; }
+  .container, .wrap{ padding: 18px 14px 60px; }
+  .card{ padding: 16px; border-radius: 20px; }
 }
