@@ -376,3 +376,80 @@ html, body {
 body {
   padding-top: 0 !important;
 }
+
+/* ===== HEADER (MATCH INDEX) ===== */
+.siteHeader{
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(11,12,20,.90), rgba(11,12,20,.50));
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.headerWrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.logoBlock{
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.logoTitle{
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--pink);
+}
+
+.logoSub{
+  font-size: 11px;
+  letter-spacing: .26em;
+  color: var(--muted);
+}
+
+/* pill menu kanan */
+.pillNav{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.pill{
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  transition: .2s ease;
+}
+
+.pill:hover{
+  background: rgba(255,255,255,.12);
+  transform: translateY(-1px);
+}
+
+.pill.active{
+  background: linear-gradient(135deg, var(--pink), var(--pink-2));
+  color: #1b0b12;
+  border: none;
+}
+
+/* konten page */
+.mainContent{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 18px 70px;
+}
