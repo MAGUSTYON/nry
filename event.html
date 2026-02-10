@@ -7,6 +7,67 @@
 
   <link rel="stylesheet" href="./styles.css" />
   <style>
+        /* ===== Sticky Header ===== */
+    .header{
+      position: sticky;
+      top: 0;
+      z-index: 3000;
+      background: rgba(7,6,17,.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.14);
+    }
+    .headerInner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .brand b{
+      font-family: Pacifico, cursive;
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--pink);
+      line-height:1;
+    }
+    .brand small{
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .nav{
+      display:flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .nav a{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      transition: all .15s ease;
+    }
+    .nav a:hover{
+      color: #fff;
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+    }
+    .nav a.active{
+      color: #0b0a12;
+      background: linear-gradient(180deg, #f2a3c7, #d98ab7);
+      border-color: rgba(255,255,255,.18);
+      font-weight: 700;
+    }
   .eventBanner{ width:100%; border-radius:16px; border:1px solid rgba(255,255,255,.14); display:block; }
   .eventMeta{ margin-top:10px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
   .eventTitle{ font-size:16px; font-weight:800; }
@@ -31,9 +92,9 @@
 
     <nav class="pillNav">
       <a class="pill" href="./index.html">Beranda</a>
-      <a class="pill active" href="./confession.html">Confession</a>
-      <a class="pill" href="./event.html">Event</a>
-      <a class="pill" href="./profil.html">Profil</a>
+      <a class="pill" href="./confession.html">Confession</a>
+      <a class="pill active" href="./event.html">Event</a>
+      <a class="pill" href="./profiles.html">Profil</a>
     </nav>
   </div>
 </header>
@@ -65,6 +126,7 @@
   <script type="module" src="./event.js"></script>
 </body>
 </html>
+
 
 
 
