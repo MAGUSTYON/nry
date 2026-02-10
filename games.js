@@ -1,10 +1,5 @@
 import { supabase } from "./supabaseClient.js";
 
-const feedStatus = document.getElementById("feedStatus");
-const feedList = document.getElementById("feedList");
-let currentBuzzRound = 1;
-
-
 const joinCard = document.getElementById("joinCard");
 const gameCard = document.getElementById("gameCard");
 
@@ -29,6 +24,10 @@ const answerStatus = document.getElementById("answerStatus");
 
 const leaveBtn = document.getElementById("leaveBtn");
 
+// ✅ ADDED: feed jawaban (semua peserta bisa lihat)
+const feedStatus = document.getElementById("feedStatus");
+const feedList = document.getElementById("feedList");
+
 const LS_KEY = "cc_state_v1";
 
 let state = {
@@ -39,6 +38,15 @@ let state = {
   current_question_id: null,
   winner_player_id: null,
 };
+
+let currentBuzzRound = 1; // ✅ ADDED
+
+function esc(s=""){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
 
 function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
 function loadState(){
@@ -77,7 +85,7 @@ let answerChannel = null;
 async function fetchRoomByCode(code){
   const { data, error } = await supabase
     .from("quiz_rooms")
-    .select("id, code, status, current_question_id")
+    .select("id, code, status, current_question_id, buzz_round")
     .eq("code", code)
     .maybeSingle();
   if (error) throw error;
@@ -122,33 +130,74 @@ async function syncRoomUI(room){
   state.current_question_id = room.current_question_id;
   saveState();
 
+  // ✅ ADDED: ambil round buzz sekarang
+  currentBuzzRound = room.buzz_round || 1;
+
   if (room.status !== "live"){
     setStatus(`Status: ${room.status}. Menunggu admin mulai…`);
     setQuestion("—");
     buzzBtn.disabled = true;
     buzzInfo.textContent = "Buzz akan aktif saat live.";
     answerBox.style.display = "none";
+    await loadAnswerFeed(); // ✅ ADDED
     return;
-    currentBuzzRound = room.buzz_round || 1;
-buzzBtn.disabled = (room.status !== "live");
-buzzInfo.textContent = room.status === "live" ? `Round buzz: ${currentBuzzRound}` : "Buzz akan aktif saat live.";
-await loadAnswerFeed();
-
   }
 
-  setStatus("LIVE! Siap-siap buzz.");
+  setStatus(`LIVE! Round buzz: ${currentBuzzRound}`);
   buzzBtn.disabled = false;
   buzzInfo.textContent = "";
 
   const q = await fetchQuestion(room.current_question_id);
   setQuestion(q?.question_text || "—");
 
-  // reset answer box setiap soal baru
+  // reset answer box setiap soal baru ATAU round berubah
   answerBox.style.display = "none";
   answerStatus.textContent = "";
   answerText.value = "";
+  sendAnswerBtn.disabled = false;
+
   state.winner_player_id = null;
   saveState();
+
+  await loadAnswerFeed(); // ✅ ADDED
+}
+
+async function loadAnswerFeed(){
+  if (!feedStatus || !feedList) return;
+
+  if (!state.current_question_id){
+    feedStatus.textContent = "";
+    feedList.innerHTML = "";
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from("quiz_answers")
+    .select("id, answer_text, verdict, submitted_at, round_no, quiz_players(nickname)")
+    .eq("question_id", state.current_question_id)
+    .order("submitted_at", { ascending: true })
+    .limit(50);
+
+  if (error){
+    feedStatus.textContent = "Feed error: " + error.message;
+    feedList.innerHTML = "";
+    return;
+  }
+
+  if (!data?.length){
+    feedStatus.textContent = "Belum ada jawaban.";
+    feedList.innerHTML = `<div class="card"><small>Belum ada jawaban.</small></div>`;
+    return;
+  }
+
+  feedStatus.textContent = `${data.length} jawaban`;
+  feedList.innerHTML = data.map(a => `
+    <div class="card">
+      <b>${esc(a.quiz_players?.nickname || "Player")}</b>
+      <small>• round ${a.round_no ?? 1} • ${esc(a.verdict)}</small>
+      <p style="white-space:pre-wrap;margin-top:8px;">${esc(a.answer_text)}</p>
+    </div>
+  `).join("");
 }
 
 async function buzz(){
@@ -157,10 +206,12 @@ async function buzz(){
   buzzBtn.disabled = true;
   buzzInfo.textContent = "Mengirim buzz…";
 
+  // ✅ CHANGED: kirim round_no
   const { error } = await supabase.from("quiz_buzzes").insert({
     room_id: state.room_id,
     question_id: state.current_question_id,
-    player_id: state.player_id
+    player_id: state.player_id,
+    round_no: currentBuzzRound
   });
 
   if (error){
@@ -169,7 +220,7 @@ async function buzz(){
     return;
   }
 
-  buzzInfo.textContent = "Buzz terkirim. Menunggu admin pilih pemenang…";
+  buzzInfo.textContent = `Buzz terkirim (round ${currentBuzzRound}). Menunggu admin pilih pemenang…`;
 }
 
 async function sendAnswer(){
@@ -181,11 +232,13 @@ async function sendAnswer(){
     return;
   }
 
+  // ✅ CHANGED: kirim round_no juga
   const { error } = await supabase.from("quiz_answers").insert({
     room_id: state.room_id,
     question_id: state.current_question_id,
     player_id: state.player_id,
-    answer_text: text
+    answer_text: text,
+    round_no: currentBuzzRound
   });
 
   if (error){
@@ -195,6 +248,8 @@ async function sendAnswer(){
 
   answerStatus.textContent = "Jawaban terkirim. Menunggu verifikasi admin…";
   sendAnswerBtn.disabled = true;
+
+  await loadAnswerFeed(); // ✅ ADDED
 }
 
 function subscribeRealtime(){
@@ -218,6 +273,9 @@ function subscribeRealtime(){
         const b = payload.new;
         if (b.question_id !== state.current_question_id) return;
 
+        // ✅ winner hanya berlaku untuk round aktif
+        if ((b.round_no ?? 1) !== currentBuzzRound) return;
+
         // kalau admin memilih pemenang
         if (b.is_winner && b.status === "answering"){
           state.winner_player_id = b.player_id;
@@ -233,27 +291,28 @@ function subscribeRealtime(){
           }
         }
 
-        // resolved -> soal selesai
+        // resolved -> ronde selesai (kalau SALAH, admin naikkan round dan UI akan sync dari roomChannel)
         if (b.status === "resolved"){
-          if (b.player_id === state.player_id){
-            buzzInfo.textContent = "Soal selesai. Tunggu next…";
-          }
           buzzBtn.disabled = false;
         }
       })
     .subscribe();
 
-  // answer verdict updates
+  // answer updates (insert/update) buat feed
   answerChannel = supabase
     .channel(`cc-ans-${state.room_id}`)
-    .on("postgres_changes", { event: "UPDATE", schema: "public", table: "quiz_answers", filter: `room_id=eq.${state.room_id}` },
-      (payload) => {
+    .on("postgres_changes", { event: "*", schema: "public", table: "quiz_answers", filter: `room_id=eq.${state.room_id}` },
+      async (payload) => {
         const a = payload.new;
         if (a.question_id !== state.current_question_id) return;
-        if (a.player_id !== state.player_id) return;
 
-        if (a.verdict === "correct") answerStatus.textContent = "✅ Benar!";
-        if (a.verdict === "wrong") answerStatus.textContent = "❌ Salah.";
+        // update status pribadi kalau jawabanmu diverifikasi
+        if (a.player_id === state.player_id){
+          if (a.verdict === "correct") answerStatus.textContent = "✅ Benar! (+poin)";
+          if (a.verdict === "wrong") answerStatus.textContent = "❌ Salah. Buzz dibuka lagi.";
+        }
+
+        await loadAnswerFeed();
       })
     .subscribe();
 }
