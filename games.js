@@ -1,5 +1,10 @@
 import { supabase } from "./supabaseClient.js";
 
+const feedStatus = document.getElementById("feedStatus");
+const feedList = document.getElementById("feedList");
+let currentBuzzRound = 1;
+
+
 const joinCard = document.getElementById("joinCard");
 const gameCard = document.getElementById("gameCard");
 
@@ -124,6 +129,11 @@ async function syncRoomUI(room){
     buzzInfo.textContent = "Buzz akan aktif saat live.";
     answerBox.style.display = "none";
     return;
+    currentBuzzRound = room.buzz_round || 1;
+buzzBtn.disabled = (room.status !== "live");
+buzzInfo.textContent = room.status === "live" ? `Round buzz: ${currentBuzzRound}` : "Buzz akan aktif saat live.";
+await loadAnswerFeed();
+
   }
 
   setStatus("LIVE! Siap-siap buzz.");
