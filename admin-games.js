@@ -71,7 +71,7 @@ function genCode(){
 
 function setRoomInfo(){
   if (!room) { roomInfo.textContent = ""; return; }
-  roomInfo.textContent = `Kode: ${room.code} • status: ${room.status} • current: ${room.current_question_id || "-"}`;
+  roomInfo.textContent = `Kode: ${room.code} • status: ${room.status} • current: ${room.current_question_id || "-"} • round: ${room.buzz_round ?? 1}`;
 }
 
 async function fetchRoomByCode(code){
@@ -120,9 +120,10 @@ async function startLive(){
 
   const first = questions[0];
 
+  // ✅ CHANGED: reset buzz_round ke 1 saat start live
   const { data, error } = await supabase
     .from("quiz_rooms")
-    .update({ status: "live", current_index: 0, current_question_id: first.id })
+    .update({ status: "live", current_index: 0, current_question_id: first.id, buzz_round: 1 })
     .eq("id", room.id)
     .select("*")
     .single();
@@ -149,9 +150,10 @@ async function nextQuestion(){
       .eq("question_id", room.current_question_id);
   }
 
+  // (opsional) reset round untuk soal baru
   const { data, error } = await supabase
     .from("quiz_rooms")
-    .update({ current_index: nextIndex, current_question_id: nextQ.id })
+    .update({ current_index: nextIndex, current_question_id: nextQ.id, buzz_round: 1 })
     .eq("id", room.id)
     .select("*")
     .single();
@@ -178,11 +180,13 @@ async function endLive(){
 async function chooseWinnerAuto(){
   if (!room?.current_question_id) return;
 
-  // ambil buzz tercepat yang belum ada winner
+  // ✅ CHANGED:
+  // pilih buzz tercepat untuk question + round aktif, yang belum resolved/winner
   const { data, error } = await supabase
     .from("quiz_buzzes")
-    .select("id, player_id, buzzed_at, is_winner, status")
+    .select("id, player_id, buzzed_at, is_winner, status, round_no")
     .eq("question_id", room.current_question_id)
+    .eq("round_no", room.buzz_round ?? 1)
     .order("buzzed_at", { ascending: true })
     .limit(1);
 
@@ -192,9 +196,10 @@ async function chooseWinnerAuto(){
   const b = data[0];
   if (b.is_winner && b.status === "answering") return;
 
+  // ✅ CHANGED: set round_no sesuai room.buzz_round
   const { error: upErr } = await supabase
     .from("quiz_buzzes")
-    .update({ is_winner: true, status: "answering" })
+    .update({ is_winner: true, status: "answering", round_no: room.buzz_round ?? 1 })
     .eq("id", b.id);
 
   if (upErr) { buzzStatus.textContent = upErr.message; return; }
@@ -207,10 +212,13 @@ async function renderBuzzes(){
     return;
   }
 
+  const activeRound = room.buzz_round ?? 1;
+
   const { data, error } = await supabase
     .from("quiz_buzzes")
-    .select("id, player_id, buzzed_at, is_winner, status, quiz_players(nickname)")
+    .select("id, player_id, buzzed_at, is_winner, status, round_no, quiz_players(nickname)")
     .eq("question_id", room.current_question_id)
+    .eq("round_no", activeRound)
     .order("buzzed_at", { ascending: true })
     .limit(30);
 
@@ -220,7 +228,7 @@ async function renderBuzzes(){
   }
 
   if (!data?.length){
-    buzzList.innerHTML = `<div class="card"><small>Belum ada yang buzz.</small></div>`;
+    buzzList.innerHTML = `<div class="card"><small>Belum ada yang buzz di round ${activeRound}.</small></div>`;
     return;
   }
 
@@ -229,7 +237,7 @@ async function renderBuzzes(){
       <div style="display:flex;justify-content:space-between;gap:10px;">
         <div>
           <b>${i+1}. ${esc(b.quiz_players?.nickname || "Player")}</b>
-          <div><small>${new Date(b.buzzed_at).toLocaleTimeString("id-ID")} • ${esc(b.status)}</small></div>
+          <div><small>${new Date(b.buzzed_at).toLocaleTimeString("id-ID")} • ${esc(b.status)} • round ${b.round_no}</small></div>
           ${b.is_winner ? `<div><small>🏆 WINNER</small></div>` : ""}
         </div>
       </div>
@@ -249,7 +257,7 @@ async function renderAnswers(){
 
   const { data, error } = await supabase
     .from("quiz_answers")
-    .select("id, player_id, answer_text, verdict, submitted_at, quiz_players(nickname)")
+    .select("id, player_id, answer_text, verdict, submitted_at, round_no, quiz_players(nickname)")
     .eq("question_id", room.current_question_id)
     .order("submitted_at", { ascending: false })
     .limit(10);
@@ -267,7 +275,7 @@ async function renderAnswers(){
   ansList.innerHTML = data.map(a => `
     <div class="card">
       <b>${esc(a.quiz_players?.nickname || "Player")}</b>
-      <div><small>${new Date(a.submitted_at).toLocaleTimeString("id-ID")} • ${esc(a.verdict)}</small></div>
+      <div><small>${new Date(a.submitted_at).toLocaleTimeString("id-ID")} • ${esc(a.verdict)} • round ${a.round_no ?? 1}</small></div>
       <p style="white-space:pre-wrap;margin-top:10px;">${esc(a.answer_text)}</p>
       <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap;">
         <button class="btn primary" data-v="correct" data-id="${a.id}" type="button">Benar</button>
@@ -276,33 +284,68 @@ async function renderAnswers(){
     </div>
   `).join("");
 
+  // ✅ CHANGED: replace handler verifikasi
   ansList.querySelectorAll("button[data-id]").forEach(btn=>{
     btn.addEventListener("click", async ()=>{
       const id = btn.getAttribute("data-id");
-      const verdict = btn.getAttribute("data-v");
+      const verdict = btn.getAttribute("data-v"); // correct / wrong
+      const POINTS_CORRECT = 10;
 
+      // ambil jawaban lengkap (butuh player_id + round_no)
+      const { data: ansRow, error: ansErr } = await supabase
+        .from("quiz_answers")
+        .select("id, player_id, question_id, round_no")
+        .eq("id", id)
+        .single();
+
+      if (ansErr) { ansStatus.textContent = ansErr.message; return; }
+
+      // update verdict
       const { error: upErr } = await supabase
         .from("quiz_answers")
         .update({ verdict, verified_at: new Date().toISOString() })
         .eq("id", id);
 
       if (upErr) { ansStatus.textContent = upErr.message; return; }
-      ansStatus.textContent = `Verifikasi: ${verdict.toUpperCase()}`;
 
-      // setelah verifikasi, resolve winner buzz (biar peserta ngerti soal selesai)
-      const { data: ansRow } = await supabase
-        .from("quiz_answers")
-        .select("player_id")
-        .eq("id", id)
-        .maybeSingle();
+      // resolve winner buzz untuk round ini
+      await supabase
+        .from("quiz_buzzes")
+        .update({ status: "resolved" })
+        .eq("question_id", ansRow.question_id)
+        .eq("round_no", ansRow.round_no ?? 1)
+        .eq("is_winner", true);
 
-      if (ansRow?.player_id){
-        await supabase
-          .from("quiz_buzzes")
-          .update({ status: "resolved" })
-          .eq("question_id", room.current_question_id)
-          .eq("player_id", ansRow.player_id)
-          .eq("is_winner", true);
+      if (verdict === "correct") {
+        // tambah poin
+        const { data: pRow, error: pErr1 } = await supabase
+          .from("quiz_players")
+          .select("points")
+          .eq("id", ansRow.player_id)
+          .single();
+
+        if (pErr1) { ansStatus.textContent = pErr1.message; return; }
+
+        const cur = pRow?.points ?? 0;
+
+        const { error: pErr2 } = await supabase
+          .from("quiz_players")
+          .update({ points: cur + POINTS_CORRECT })
+          .eq("id", ansRow.player_id);
+
+        if (pErr2) { ansStatus.textContent = pErr2.message; return; }
+
+        ansStatus.textContent = `✅ BENAR (+${POINTS_CORRECT} poin)`;
+      } else {
+        // SALAH → buka buzz lagi (round + 1)
+        const { error: rErr } = await supabase
+          .from("quiz_rooms")
+          .update({ buzz_round: (room.buzz_round ?? 1) + 1 })
+          .eq("id", room.id);
+
+        if (rErr) { ansStatus.textContent = rErr.message; return; }
+
+        ansStatus.textContent = "❌ SALAH — Buzz dibuka lagi!";
       }
 
       await renderAnswers();
@@ -382,7 +425,7 @@ createRoomBtn.addEventListener("click", async ()=>{
 
   const { data, error } = await supabase
     .from("quiz_rooms")
-    .insert({ code })
+    .insert({ code, buzz_round: 1 })
     .select("*")
     .single();
 
