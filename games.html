@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Games • Cerdas Cermat</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<header class="siteHeader">
+  <div class="headerWrap">
+    <div class="logoBlock">
+      <div class="logoTitle">New Resident</div>
+      <div class="logoSub">YOGYAKARTA</div>
+    </div>
+    <nav class="pillNav">
+      <a class="pill" href="./index.html">Beranda</a>
+      <a class="pill" href="./confession.html">Confession</a>
+      <a class="pill" href="./event.html">Event</a>
+      <a class="pill active" href="./games.html">Games</a>
+    </nav>
+  </div>
+</header>
+
+<main class="mainContent">
+  <p class="kicker">LIVE QUIZ</p>
+  <h1 class="title">Cerdas Cermat</h1>
+  <p class="sub">Join pakai kode room. Saat soal tampil, tekan BUZZ secepatnya!</p>
+
+  <div class="hr"></div>
+
+  <div id="joinCard" class="card">
+    <h2>Join Room</h2>
+    <div class="row" style="margin-top:12px;">
+      <input id="roomCode" placeholder="Kode Room (mis: NYL123)" />
+      <input id="nickname" placeholder="Nickname" />
+      <button id="joinBtn" class="btn primary" type="button">Join</button>
+      <small id="joinStatus"></small>
+    </div>
+  </div>
+
+  <div id="gameCard" class="card" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+      <div>
+        <h2 style="margin:0;">Room: <span id="roomLabel"></span></h2>
+        <small id="gameStatus"></small>
+      </div>
+      <button id="leaveBtn" class="btn secondary" type="button">Keluar</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div id="questionBox">
+      <h3 id="qTitle" style="margin:0;">Menunggu soal…</h3>
+      <p id="qText" style="margin-top:10px;color:var(--text);">—</p>
+    </div>
+
+    <div class="hr"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <button id="buzzBtn" class="btn primary" type="button" style="min-width:160px;">BUZZ</button>
+      <small id="buzzInfo"></small>
+    </div>
+
+    <div id="answerBox" style="margin-top:14px;display:none;">
+      <div class="row">
+        <textarea id="answerText" placeholder="Tulis jawabanmu…"></textarea>
+        <button id="sendAnswerBtn" class="btn primary" type="button">Kirim Jawaban</button>
+        <small id="answerStatus"></small>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="./games.js"></script>
+</body>
+</html>
