@@ -220,7 +220,10 @@ async function buzz(){
     return;
   }
 
-  buzzInfo.textContent = `Buzz terkirim (round ${currentBuzzRound}). Menunggu admin pilih pemenang…`;
+ buzzInfo.textContent = `Buzz terkirim (round ${currentBuzzRound}). Silakan jawab sekarang.`;
+answerBox.style.display = "block";
+sendAnswerBtn.disabled = false;
+
 }
 
 async function sendAnswer(){
