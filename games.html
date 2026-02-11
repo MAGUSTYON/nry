@@ -42,7 +42,13 @@
 
   <div id="gameCard" class="card" style="display:none;">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-      <div>
+      <div><div id="answerBox" style="display:none;margin-top:20px;">
+  <h3>Jawab Sekarang</h3>
+  <textarea id="answerText" placeholder="Ketik jawaban kamu..." rows="4"></textarea>
+  <button id="sendAnswerBtn" class="btn primary" type="button">Kirim Jawaban</button>
+  <small id="answerStatus"></small>
+</div>
+
         <h2 style="margin:0;">Room: <span id="roomLabel"></span></h2>
         <small id="gameStatus"></small>
       </div>
@@ -71,6 +77,14 @@
       </div>
     </div>
   </div>
+  <div class="hr"></div>
+
+<div class="card">
+  <h3>Jawaban yang Masuk</h3>
+  <small id="feedStatus"></small>
+  <div id="feedList" class="list" style="margin-top:12px;"></div>
+</div>
+
   <div class="hr"></div>
 <div class="card">
   <h3 style="margin:0;">Jawaban yang masuk</h3>
