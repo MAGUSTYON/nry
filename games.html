@@ -3,53 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Games • Cerdas Cermat</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <title>Games - Cerdas Cermat</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="siteHeader">
-  <div class="headerWrap">
-    <div class="logoBlock">
-      <div class="logoTitle">New Resident</div>
-      <div class="logoSub">YOGYAKARTA</div>
-    </div>
-    <nav class="pillNav">
-      <a class="pill" href="./index.html">Beranda</a>
-      <a class="pill" href="./confession.html">Confession</a>
-      <a class="pill" href="./event.html">Event</a>
-      <a class="pill active" href="./games.html">Games</a>
-    </nav>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-title">New Resident</div>
+    <div class="brand-sub">YOGYAKARTA</div>
   </div>
+  <nav class="nav">
+    <a class="pill" href="index.html">Beranda</a>
+    <a class="pill" href="confession.html">Confession</a>
+    <a class="pill" href="event.html">Event</a>
+    <a class="pill active" href="games.html">Games</a>
+  </nav>
 </header>
 
-<main class="mainContent">
-  <p class="kicker">LIVE QUIZ</p>
-  <h1 class="title">Cerdas Cermat</h1>
-  <p class="sub">Join pakai kode room. Saat soal tampil, tekan BUZZ secepatnya!</p>
+<main class="container">
 
-  <div class="hr"></div>
+  <!-- JOIN -->
+  <section id="joinCard" class="card">
+    <h2>Cerdas Cermat (Live)</h2>
+    <p>Masukkan kode room dari admin dan nickname kamu.</p>
 
-  <div id="joinCard" class="card">
-    <h2>Join Room</h2>
-    <div class="row" style="margin-top:12px;">
-      <input id="roomCode" placeholder="Kode Room (mis: NYL123)" />
-      <input id="nickname" placeholder="Nickname" />
-      <button id="joinBtn" class="btn primary" type="button">Join</button>
-      <small id="joinStatus"></small>
+    <div class="grid2">
+      <div>
+        <label>Kode Room</label>
+        <input id="roomCode" placeholder="contoh: A1B2C3" />
+      </div>
+      <div>
+        <label>Nickname</label>
+        <input id="nickname" placeholder="nama kamu" />
+      </div>
     </div>
-  </div>
 
-  <div id="gameCard" class="card" style="display:none;">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-      <div><div id="answerBox" style="display:none;margin-top:20px;">
-  <h3>Jawab Sekarang</h3>
-  <textarea id="answerText" placeholder="Ketik jawaban kamu..." rows="4"></textarea>
-  <button id="sendAnswerBtn" class="btn primary" type="button">Kirim Jawaban</button>
-  <small id="answerStatus"></small>
-</div>
+    <button id="joinBtn" class="btn primary" type="button">Join</button>
+    <small id="joinStatus"></small>
+  </section>
 
-        <h2 style="margin:0;">Room: <span id="roomLabel"></span></h2>
+  <!-- GAME -->
+  <section id="gameCard" class="card" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div>
+        <h2 style="margin:0;">Room: <span id="roomLabel">-</span></h2>
         <small id="gameStatus"></small>
       </div>
       <button id="leaveBtn" class="btn secondary" type="button">Keluar</button>
@@ -57,40 +55,31 @@
 
     <div class="hr"></div>
 
-    <div id="questionBox">
-      <h3 id="qTitle" style="margin:0;">Menunggu soal…</h3>
-      <p id="qText" style="margin-top:10px;color:var(--text);">—</p>
+    <h3 id="qTitle">Pertanyaan</h3>
+    <p id="qText">—</p>
+
+    <div class="hr"></div>
+
+    <button id="buzzBtn" class="btn primary" type="button">BUZZ</button>
+    <small id="buzzInfo"></small>
+
+    <!-- Kolom jawab (muncul hanya jika kamu BUZZ tercepat) -->
+    <div id="answerBox" style="display:none;margin-top:18px;">
+      <h3>Jawab Sekarang</h3>
+      <textarea id="answerText" rows="4" placeholder="Tulis jawaban kamu..."></textarea>
+      <button id="sendAnswerBtn" class="btn primary" type="button">Kirim Jawaban</button>
+      <small id="answerStatus"></small>
     </div>
 
     <div class="hr"></div>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-      <button id="buzzBtn" class="btn primary" type="button" style="min-width:160px;">BUZZ</button>
-      <small id="buzzInfo"></small>
-    </div>
-
-  <div id="answerBox" style="display:none;">
-  <textarea id="answerText"></textarea>
-  <button id="sendAnswerBtn" type="button">Kirim Jawaban</button>
-  <small id="answerStatus"></small>
-</div>
-  <div class="hr"></div>
-
-<div class="card">
-  <h3>Jawaban yang Masuk</h3>
-  <small id="feedStatus"></small>
-  <div id="feedList" class="list" style="margin-top:12px;"></div>
-</div>
-
-  <div class="hr"></div>
-<div class="card">
-  <h3 style="margin:0;">Jawaban yang masuk</h3>
-  <small id="feedStatus"></small>
-  <div id="feedList" class="list" style="margin-top:12px;"></div>
-</div>
+    <h3>Jawaban yang Masuk</h3>
+    <small id="feedStatus"></small>
+    <div id="feedList" class="list" style="margin-top:12px;"></div>
+  </section>
 
 </main>
 
-<script type="module" src="./games.js"></script>
+<script type="module" src="games.js"></script>
 </body>
 </html>
