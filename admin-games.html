@@ -3,100 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin Games • Cerdas Cermat</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <title>Admin - Cerdas Cermat</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="siteHeader">
-  <div class="headerWrap">
-    <div class="logoBlock">
-      <div class="logoTitle">Admin</div>
-      <div class="logoSub">Cerdas Cermat</div>
-    </div>
-    <nav class="pillNav">
-      <a class="pill" href="./admin.html">Admin Panel</a>
-      <a class="pill" href="./index.html">Beranda</a>
-      <a class="pill active" href="./admin-games.html">Admin Games</a>
-    </nav>
-  </div>
-</header>
+<main class="container">
 
-<main class="mainContent">
-  <div id="loginCard" class="card">
+  <!-- LOGIN -->
+  <section id="loginCard" class="card">
     <h2>Admin Login</h2>
-    <div class="row" style="margin-top:12px;">
-      <input id="email" placeholder="Email admin" />
-      <input id="password" type="password" placeholder="Password admin" />
-      <button id="loginBtn" class="btn primary" type="button">Login</button>
-      <small id="loginStatus"></small>
-    </div>
-  </div>
-
-  <div id="panel" style="display:none;">
-    <div class="grid">
-
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-          <h2 style="margin:0;">Room</h2>
-          <button id="logoutBtn" class="btn secondary" type="button">Logout</button>
-        </div>
-
-        <div class="row" style="margin-top:12px;">
-          <button id="createRoomBtn" class="btn primary" type="button">Buat Room Baru</button>
-          <small id="roomInfo"></small>
-
-          <div class="hr"></div>
-
-          <input id="loadCode" placeholder="Atau load room pakai kode (mis: NYL123)" />
-          <button id="loadRoomBtn" class="btn secondary" type="button">Load Room</button>
-          <small id="loadStatus"></small>
-
-          <div class="hr"></div>
-
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button id="startBtn" class="btn primary" type="button">Start Live</button>
-            <button id="nextBtn" class="btn secondary" type="button">Next Soal</button>
-            <button id="endBtn" class="btn secondary" type="button">End</button>
-          </div>
-          <small id="liveStatus"></small>
-        </div>
+    <div class="grid2">
+      <div>
+        <label>Email</label>
+        <input id="email" type="email" placeholder="admin@email.com" />
       </div>
+      <div>
+        <label>Password</label>
+        <input id="password" type="password" placeholder="password" />
+      </div>
+    </div>
+    <button id="loginBtn" class="btn primary" type="button">Login</button>
+    <small id="loginStatus"></small>
+  </section>
 
+  <!-- PANEL -->
+  <section id="panel" style="display:none;">
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div>
+        <h2 style="margin:0;">Admin • Cerdas Cermat</h2>
+        <small id="roomInfo"></small>
+        <div><small id="liveStatus"></small></div>
+      </div>
+      <button id="logoutBtn" class="btn secondary" type="button">Logout</button>
+    </div>
+
+    <div class="grid2" style="margin-top:14px;">
       <div class="card">
-        <h2>Tambah Pertanyaan</h2>
-        <div class="row" style="margin-top:12px;">
-          <textarea id="qText" placeholder="Tulis pertanyaan…"></textarea>
-          <button id="addQBtn" class="btn primary" type="button">Tambah</button>
-          <small id="qStatus"></small>
-        </div>
+        <h3>Room</h3>
+        <button id="createRoomBtn" class="btn primary" type="button">Create Room</button>
 
         <div class="hr"></div>
 
-        <h3>List Pertanyaan</h3>
-        <div id="qList" class="list" style="margin-top:12px;"></div>
+        <label>Load by code</label>
+        <input id="loadCode" placeholder="A1B2C3" />
+        <button id="loadRoomBtn" class="btn secondary" type="button">Load</button>
+        <small id="loadStatus"></small>
+
+        <div class="hr"></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button id="startBtn" class="btn primary" type="button">Start Live</button>
+          <button id="nextBtn" class="btn secondary" type="button">Next Soal</button>
+          <button id="endBtn" class="btn secondary" type="button">End</button>
+        </div>
       </div>
 
+      <div class="card">
+        <h3>Tambah Pertanyaan</h3>
+        <textarea id="qText" rows="4" placeholder="Tulis pertanyaan..."></textarea>
+        <button id="addQBtn" class="btn primary" type="button">Tambah</button>
+        <small id="qStatus"></small>
+        <div class="hr"></div>
+        <div id="qList"></div>
+      </div>
     </div>
 
-    <div class="hr"></div>
-
-    <div class="grid">
+    <div class="grid2" style="margin-top:14px;">
       <div class="card">
-        <h2>Buzz (Siapa tercepat)</h2>
+        <h3>Buzz (Siapa tercepat)</h3>
         <small id="buzzStatus"></small>
-        <div id="buzzList" class="list" style="margin-top:12px;"></div>
+        <div id="buzzList"></div>
       </div>
 
       <div class="card">
-        <h2>Jawaban</h2>
+        <h3>Jawaban Masuk</h3>
         <small id="ansStatus"></small>
-        <div id="ansList" class="list" style="margin-top:12px;"></div>
+        <div id="ansList"></div>
       </div>
     </div>
-  </div>
+  </section>
+
 </main>
 
-<script type="module" src="./admin-games.js"></script>
+<script type="module" src="admin-games.js"></script>
 </body>
 </html>
