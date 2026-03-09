@@ -384,6 +384,27 @@
   font-size:14px;
 }
 
+    .photo-frame{
+  width:100%;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:16px;
+}
+
+.photo-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.photo-caption{
+  margin-top:10px;
+  text-align:center;
+  font-weight:600;
+  color:#4b94d5;
+}
+
     @keyframes floaty {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
@@ -504,10 +525,13 @@
         </div>
       </section>
       <section class="section-grid">
-        <div class="soft-car">
+        <div class="soft-card">
+           <div class="photo-frame">
           <img src="sunghoon.jpg" alt="Foto Pita">
-          <div class="photo-text">
-          Nih Sunghoon
+           </div>
+          <p class="photo-caption">
+            Nih Sunghoon
+          </p>
          </div>
         </div>
         <div class="soft-card">
@@ -517,11 +541,13 @@
             <li>🎀 Simpan momen lucu sebanyak mungkin</li>
           </ul>
         </div>
-        <div class="soft-car">
-          <img src="pita.jpg" alt="Foto Pita">
-          <div class="photo-text">
-          Ini Bininya Sunghoon
-         </div>
+        <div class="soft-card">
+          <div class="photo-frame">
+            <img src="pita.jpg" alt="Foto Pita">
+          </div>
+          <p class="photo-caption">
+            Ini Bininya Sunghoon
+          </p>
         </div>
       </section>
 
@@ -649,5 +675,6 @@
   </script>
 </body>
 </html>
+
 
 
