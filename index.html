@@ -486,6 +486,63 @@
     </div>
   </div>
 
+  <div class="screen" id="candleScreen">
+  <div class="card">
+    <div class="badge">🎂 Satu lagi</div>
+    <h1 class="title">Tiup Lilinnya</h1>
+    <p class="subtitle">Pencet tombol buat tiup lilin dulu yaa</p>
+
+    <div style="display:flex; justify-content:center; margin:20px 0;">
+      <div style="position:relative; width:120px; height:160px;">
+        
+        <div id="flame"
+        style="
+        position:absolute;
+        top:0;
+        left:50%;
+        transform:translateX(-50%);
+        width:26px;
+        height:40px;
+        background:orange;
+        border-radius:50%;
+        box-shadow:0 0 20px orange;
+        ">
+        </div>
+
+        <div style="
+        position:absolute;
+        top:30px;
+        left:50%;
+        transform:translateX(-50%);
+        width:6px;
+        height:20px;
+        background:white;
+        ">
+        </div>
+
+        <div style="
+        position:absolute;
+        bottom:0;
+        width:120px;
+        height:100px;
+        background:#7ec8ff;
+        border-radius:20px;
+        ">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="primary-btn" id="blowBtn">Tiup Lilin 💨</button>
+      <button class="secondary-btn" id="goMain" style="display:none;">
+        Masuk Web 💙
+      </button>
+    </div>
+
+  </div>
+</div>
+
   <div class="screen" id="mainScreen">
     <div class="floating-bg" id="mainBg"></div>
     <div class="main-wrap">
@@ -564,10 +621,11 @@
 
   <script>
     const screens = {
-      intro: document.getElementById('introScreen'),
-      balloon: document.getElementById('balloonScreen'),
-      main: document.getElementById('mainScreen')
-    };
+  intro: document.getElementById('introScreen'),
+  balloon: document.getElementById('balloonScreen'),
+  candle: document.getElementById('candleScreen'),
+  main: document.getElementById('mainScreen')
+};
 
     function showScreen(name) {
       Object.values(screens).forEach(screen => screen.classList.remove('active'));
@@ -667,14 +725,29 @@
       });
     }
 
-    nextToMainBtn.addEventListener('click', () => {
-      showScreen('main');
+nextToMainBtn.addEventListener('click', () => {
+  showScreen('candle');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    const blowBtn = document.getElementById("blowBtn");
+const flame = document.getElementById("flame");
+const goMain = document.getElementById("goMain");
+
+if(blowBtn){
+blowBtn.onclick = () => {
+
+  flame.style.display = "none";
+
+  goMain.style.display = "inline-flex";
+}
+}
+
+if(goMain){
+goMain.onclick = () => {
+  showScreen("main");
+}
+}
   </script>
 </body>
 </html>
-
-
-
-
