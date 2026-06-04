@@ -1,63 +1,551 @@
 <!doctype html>
 <html lang="id">
 <head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8438237515347728"
+     crossorigin="anonymous"></script>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Confession</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Resident Yogyakarta – Novel Romantis Karya Raisyamq</title>
+  <meta name="description" content="New Resident Yogyakarta adalah novel romantis karya Raisyamq tentang Anchiera Deisya yang merantau ke Jogja, membawa luka, dan menemukan cinta di tempat yang tak terduga. Baca sinopsis, kenali karakter, dan temukan quotes favoritmu." />
+  <meta name="keywords" content="novel romantis, New Resident Yogyakarta, Raisyamq, novel Jogja, novel Indonesia, cerita cinta, healing, perantauan Jogja" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== Sticky Header ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 3000;
+      background: rgba(7,6,17,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.14);
+    }
+    .headerInner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand { display:flex; flex-direction:column; gap:2px; }
+    .brand b {
+      font-family: Pacifico, cursive;
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--pink);
+      line-height: 1;
+    }
+    .brand small {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .nav { display:flex; gap:6px; flex-wrap:wrap; }
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: all .15s ease;
+    }
+    .nav a:hover { color:#fff; background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14); }
+    .nav a.active {
+      color: #0b0a12;
+      background: linear-gradient(180deg, #f2a3c7, #d98ab7);
+      border-color: rgba(255,255,255,.18);
+      font-weight: 700;
+    }
+
+    /* ===== Page ===== */
+    .page { max-width: 980px; margin: 0 auto; padding: 22px 18px 46px; }
+
+    .sectionTitle { margin:0 0 10px; }
+    .sectionSub   { margin:0 0 14px; color: var(--muted); }
+
+    /* ===== Hero Banner ===== */
+    .heroBanner {
+      background: linear-gradient(135deg, rgba(242,161,179,.12), rgba(18,19,42,.6));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 36px 28px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .heroBanner .heroTag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--pink);
+      background: rgba(242,161,179,.12);
+      border: 1px solid rgba(242,161,179,.25);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .heroBanner h1 {
+      font-family: Pacifico, cursive;
+      font-weight: 400;
+      font-size: clamp(28px, 5vw, 46px);
+      color: var(--pink);
+      line-height: 1.15;
+      text-shadow: 0 0 28px rgba(242,161,179,.3);
+      margin-bottom: 10px;
+    }
+    .heroBanner .heroQuote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 20px;
+    }
+    .heroBanner .heroButtons { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+    /* ===== Prologue ===== */
+    .prologue { line-height: 1.75; color: rgba(255,255,255,.88); }
+    .prologue .quoteBlock { margin: 14px 0 18px; }
+    .prologue .quoteBlock h3 { margin:0; line-height:1.25; }
+    .prologue .quoteBlock h3 + h3 { margin-top:8px; }
+    .prologue p { margin: 10px 0; }
+
+    /* ===== Karakter Grid ===== */
+    .karakterGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .karakterCard {
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .avatarCircle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(242,161,179,.18);
+      border: 1px solid rgba(242,161,179,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+    .karakterName { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--pink); font-weight: 700; margin-bottom: 3px; }
+    .karakterRole { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .karakterDesc { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.65; }
+    .traitRow { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+    .trait {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(242,161,179,.12);
+      color: var(--pink);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,161,179,.2);
+    }
+
+    /* ===== Quotes Grid ===== */
+    .quotesGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .quoteCard {
+      background: rgba(242,161,179,.06);
+      border: 1px solid rgba(242,161,179,.2);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .quoteMark { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height:1; color: var(--pink); margin-bottom: 6px; opacity:.7; }
+    .quoteText { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,.88); line-height: 1.7; }
+    .quoteSource { font-size: 11px; color: var(--muted); margin-top: 10px; font-weight: 700; letter-spacing: .06em; }
+
+    /* ===== Penulis ===== */
+    .penulisInner { display:grid; grid-template-columns: 90px 1fr; gap: 20px; align-items: start; }
+    .penulisAvatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(242,161,179,.15);
+      border: 1px solid rgba(242,161,179,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: Pacifico, cursive;
+      font-size: 1.8rem;
+      color: var(--pink);
+    }
+    .penulisName { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--pink); font-weight: 700; margin-bottom: 3px; }
+    .penulisHandle { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 10px; }
+    .penulisBio { font-size: 14px; color: rgba(255,255,255,.78); line-height: 1.75; }
+    .penulisBio p + p { margin-top: 8px; }
+
+    /* ===== FAQ ===== */
+    .faqList { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+    .faqItem {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+    .faqQ { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--pink); font-weight: 700; margin-bottom: 6px; }
+    .faqA { font-size: 13.5px; color: rgba(255,255,255,.75); line-height: 1.7; }
+    .faqA a { color: var(--pink); text-decoration: none; font-weight: 700; }
+    .faqA a:hover { text-decoration: underline; }
+
+    /* ===== Buy Row ===== */
+    .buyRow {
+      display:flex; gap:12px; align-items:center;
+      justify-content:space-between; flex-wrap:wrap;
+    }
+
+    /* ===== Footer ===== */
+    .footerLinks {
+      margin-top: 60px; text-align: center; font-size: 13px;
+      color: var(--muted); display:flex; justify-content:center;
+      align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .footerLinks a { color:var(--muted); text-decoration:none; transition:.2s; }
+    .footerLinks a:hover { color:var(--pink); }
+
+    h2 { font-size: 22px; }
+    h4 { font-size: 16px; font-family: 'Playfair Display', serif; color: var(--pink); font-weight: 700; }
+
+    @media(max-width:520px){
+      .penulisInner { grid-template-columns: 1fr; }
+      .heroBanner { padding: 24px 18px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="nav">
-      <div class="brand">✨ ConfessSite</div>
-      <div class="navlinks">
-        <a class="pill" href="/">Beranda</a>
-        <a class="pill active" href="/confession.html">Confession</a>
-        <a class="pill" href="/event.html">Event</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="headerInner">
+      <div class="brand">
+        <b>New Resident</b>
+        <small>Yogyakarta</small>
+      </div>
+      <nav class="nav">
+        <a class="active" href="index.html">Beranda</a>
+        <a href="quotes.html">Quotes</a>
+        <a href="rating.html">Rating</a>
+        <a href="confession.html">Confession</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== PAGE CONTENT ===== -->
+  <main class="page">
+
+    <!-- Kicker + judul halaman -->
+    <div>
+      <p class="kicker">NEW RESIDENT YOGYAKARTA</p>
+      <h1 class="title">Beranda</h1>
+      <p class="sub">Cerita, confession, event, dan karakter — semua dikumpulin di satu web.</p>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- ===== HERO BANNER ===== -->
+    <div class="heroBanner">
+      <span class="heroTag">Novel Romantis · Karya Raisyamq</span>
+      <h1>New Resident Yogyakarta</h1>
+      <p class="heroQuote">"Bawalah lukamu ke Jogja, biar Jogja yang menyembuhkannya."</p>
+      <div class="heroButtons">
+        <a class="btn primary" href="https://id.shp.ee/Wpwnkqj" target="_blank" rel="noreferrer">🛒 Beli Novel</a>
+        <a class="btn secondary" href="#sinopsis">Baca Sinopsis</a>
+        <a class="btn secondary" href="#karakter">Lihat Karakter</a>
       </div>
     </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Kirim Confession</h2>
-        <div class="muted">Nama bisa anonim, lagu pakai Spotify Embed.</div>
+    <div class="hr"></div>
 
-        <form id="confessForm">
-          <label>Nama</label>
-          <input id="name" placeholder="Misal: Tio (atau kosong kalau anonim)" maxlength="50" />
+    <!-- ===== SINOPSIS ===== -->
+    <div class="card" id="sinopsis">
+      <h2 class="sectionTitle">📖 Sinopsis Lengkap</h2>
+      <p class="sectionSub">Tentang novel New Resident Yogyakarta</p>
 
-          <div class="checkbox">
-            <input type="checkbox" id="anonymous" />
-            <span>Anonimkan nama</span>
-          </div>
-
-          <label>Link Lagu Spotify (opsional)</label>
-          <input id="spotifyUrl" placeholder="https://open.spotify.com/track/..." />
-
-          <label>Message</label>
-          <textarea id="message" placeholder="Tulis confession kamu..." required maxlength="1000"></textarea>
-
-          <label>Impression (opsional)</label>
-          <textarea id="impression" placeholder="Kesan / pesan singkat..." maxlength="500"></textarea>
-
-          <button id="submitBtn" type="submit">Kirim</button>
-          <div id="status" class="small"></div>
-        </form>
-      </div>
-
-      <div class="card">
-        <h2>Semua Confession</h2>
-        <div class="row" style="justify-content: space-between;">
-          <div class="muted">Terbaru di atas</div>
-          <button id="refreshBtn" type="button" style="width:auto; padding:10px 12px;">Refresh</button>
+      <div class="prologue">
+        <div class="quoteBlock">
+          <h3>"Bawalah lukamu ke Jogja,</h3>
+          <h3>biar Jogja yang menyembuhkannya."</h3>
         </div>
-        <div class="hr"></div>
 
-        <div id="list" class="list"></div>
+        <p>Anchiera Deisya memegang kalimat tu erat-erat soot memutuskan pindah ke Jogja, Selain pergi ke Jogja untuk berkuliah di universitas Impiannya, Deisya juga pergi untuk kabur, membawa hati yang remuk kareria ditinggal menikah oleh pujaan hatinya.</p>
+
+        <p>Di tengah upaya merapikan kepingan-kepingan hatinya yang berserakan, Deisya justru bertemu dengan seorang laki-laki absurd, tengil, dan terlalu cerewet untuk diabaikan. Awalnya, keberadaan laki-laki itu terasa begitu mengganggu. Namun secara perlahan, tanpa Deisya sadari, kehadiran laki-laki itu mampu mengura lukanya.</p>
+
+        <p>Lantas, apakah laki-laki itu bisa membantu Deisya menyembuhkan lukanya secara utuh di Jogja?</p>
+
+        <p>Atau justru kehadirannya malah menghadirkan luka baru yang membuat Deisya tidak ingin kembali mengenal cinta?</p>
+      </div>
+
+      <div style="margin-top:14px;">
+        <small>a story by Raisyamq</small>
       </div>
     </div>
-  </div>
 
-  <script src="/app.js"></script>
+    <div class="hr"></div>
+
+    <!-- ===== KARAKTER ===== -->
+    <div id="karakter">
+      <h2 class="sectionTitle">👤 Karakter Utama</h2>
+      <p class="sectionSub">Mengenal para tokoh dalam cerita</p>
+
+      <!-- Main Characters -->
+      <h4 style="margin-bottom:10px;">⭐ Main Character</h4>
+      <div class="karakterGrid" style="margin-bottom:20px;">
+        <div class="karakterCard" style="border-color:rgba(242,161,179,.4);">
+          <div class="avatarCircle">A</div>
+          <div class="karakterName">Anchiera Deisya</div>
+          <div class="karakterRole">Main Character · 22 Tahun</div>
+          <p class="karakterDesc">Gengsian, mudah luluh kalo sama Aileo, kalem, bobrok sama orang-orang tertentu, perasa. Mahasiswi dengan cita-cita bekerja di bidang kesehatan.</p>
+          <div class="traitRow">
+            <span class="trait">Gengsian</span>
+            <span class="trait">Kalem</span>
+            <span class="trait">Perasa</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(242,161,179,.08); border:1px solid rgba(242,161,179,.2); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.8); line-height:1.6;">"Mengagumi seseorang itu adalah seni melukai diri sendiri. Apalagi yang kita kagumi sudah menjadi milik orang lain."</p>
+          </div>
+        </div>
+
+        <div class="karakterCard" style="border-color:rgba(242,161,179,.4);">
+          <div class="avatarCircle">Al</div>
+          <div class="karakterName">Aileo Dhanurendra</div>
+          <div class="karakterRole">Main Character · 22 Tahun</div>
+          <p class="karakterDesc">Tengil, absurd, sering asbun, perhatian, greenflag parah, semua love language di borong sama dia. Mahasiswa teknik mesin dari UGM dan juragan ikan hias. Cita-cita: jadi orang sukses dan jadi suami Deisya.</p>
+          <div class="traitRow">
+            <span class="trait">Tengil</span>
+            <span class="trait">Perhatian</span>
+            <span class="trait">Greenflag</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(242,161,179,.08); border:1px solid rgba(242,161,179,.2); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.8); line-height:1.6;">"Semoga tawa dari wajahmu tidak luntur walaupun tak sengaja tertumpah air."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Characters -->
+      <h4 style="margin-bottom:10px; color:var(--muted);">👥 Side Character</h4>
+      <div class="karakterGrid">
+        <div class="karakterCard">
+          <div class="avatarCircle" style="font-size:1rem;">Kr</div>
+          <div class="karakterName">Kendrick Arvaand</div>
+          <div class="karakterRole">Side Character · 24 Tahun</div>
+          <p class="karakterDesc">Egois, suka sekali mencari gara-gara dengan Aileo, ambis. Atlet badminton, bekerja di PLN dan mempunyai toko fotocopy. Cita-cita: Atlet.</p>
+          <div class="traitRow">
+            <span class="trait">Egois</span>
+            <span class="trait">Ambis</span>
+            <span class="trait">Kompetitif</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.7); line-height:1.6;">"Jangan menjadikan seseorang sebagai pelampiasan untuk melupakan masa lalu."</p>
+          </div>
+        </div>
+
+        <div class="karakterCard">
+          <div class="avatarCircle" style="font-size:1rem;">Aq</div>
+          <div class="karakterName">Aqeela Fransiska Putri</div>
+          <div class="karakterRole">Side Character · 22 Tahun</div>
+          <p class="karakterDesc">Centil, setia, baik dan humoris. Mahasiswa kedokteran dengan cita-cita menjadi dokter.</p>
+          <div class="traitRow">
+            <span class="trait">Centil</span>
+            <span class="trait">Setia</span>
+            <span class="trait">Humoris</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.7); line-height:1.6;">"Emang boleh ya cemburu tapi nggak ada hubungan?"</p>
+          </div>
+        </div>
+
+        <div class="karakterCard">
+          <div class="avatarCircle" style="font-size:1rem;">Rm</div>
+          <div class="karakterName">Raden Mahveen Adiningrat</div>
+          <div class="karakterRole">Side Character · 22 Tahun</div>
+          <p class="karakterDesc">Diam-diam menghanyutkan, sekali ngomong pedas, tegas, agak egois. Mahasiswa dengan cita-cita menjadi dokter.</p>
+          <div class="traitRow">
+            <span class="trait">Misterius</span>
+            <span class="trait">Tegas</span>
+            <span class="trait">Pedas</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.7); line-height:1.6;">"Nyatanya, perpisahan bukan disebabkan oleh keinginan, melainkan restu orang tua."</p>
+          </div>
+        </div>
+
+        <div class="karakterCard">
+          <div class="avatarCircle" style="font-size:1rem;">Je</div>
+          <div class="karakterName">Jaegar Elang</div>
+          <div class="karakterRole">Side Character · 22 Tahun</div>
+          <p class="karakterDesc">Tengil, selalu menjadi badut tongkrongan. Dulu jadi tukang bengkel tapi resign, sekarang pengangguran. Cita-cita: arsitek.</p>
+          <div class="traitRow">
+            <span class="trait">Tengil</span>
+            <span class="trait">Badut Tongkrongan</span>
+            <span class="trait">Santai</span>
+          </div>
+          <div style="margin-top:12px; padding:10px 12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,.7); line-height:1.6;">"Laki-laki akan selalu memperjuangkan perempuan yang dia inginkan."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- ===== QUOTES STATIS ===== -->
+    <div id="quotesStatis">
+      <h2 class="sectionTitle">💬 Quotes Favorit Pembaca</h2>
+      <p class="sectionSub">Penggalan kata-kata dari New Resident Yogyakarta yang paling banyak disukai</p>
+
+      <div class="quotesGrid">
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Bawalah lukamu ke Jogja, biar Jogja yang menyembuhkannya. Dan kalau Jogja pun tidak sanggup — setidaknya kamu tidak sendirian menghadapinya.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Kamu tidak harus baik-baik saja setiap saat. Kadang cukup bertahan dulu, lalu perlahan-lahan bangun kembali. Tidak perlu buru-buru.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Ada orang-orang yang hadir bukan untuk menetap, tapi untuk mengajarkan kita bahwa kita masih layak untuk dicintai.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Jogja punya caranya sendiri membuat orang jatuh cinta — pada kotanya, pada orang-orangnya, atau pada dirinya sendiri yang baru.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Tidak semua yang hilang itu kerugian. Kadang yang hilang justru memberi ruang untuk hal yang lebih baik masuk ke hidupmu.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+
+        <div class="quoteCard">
+          <div class="quoteMark">"</div>
+          <p class="quoteText">Sembuh itu bukan soal melupakan. Sembuh adalah ketika kamu bisa mengingat tanpa ikut tenggelam di dalamnya.</p>
+          <p class="quoteSource">— New Resident Yogyakarta</p>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; text-align:center;">
+        <a class="btn secondary" href="quotes.html">Lihat Semua Quotes Komunitas →</a>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- ===== TENTANG PENULIS ===== -->
+    <div class="card" id="penulis">
+      <h2 class="sectionTitle">✍️ Tentang Penulis</h2>
+      <p class="sectionSub">Mengenal sosok di balik cerita</p>
+
+      <div class="penulisInner">
+        <div class="penulisAvatar">R</div>
+        <div>
+          <div class="penulisName">Raisyamq</div>
+          <div class="penulisHandle">Penulis · New Resident Yogyakarta</div>
+          <div class="penulisBio">
+            <p>Raisyamq adalah penulis muda Indonesia yang dikenal lewat gaya penulisannya yang hangat dan penuh perasaan. Melalui kata-kata, ia mengajak pembaca untuk merasakan hal-hal yang sering kali sulit diungkapkan dalam kehidupan nyata.</p>
+            <p><em>New Resident Yogyakarta</em> adalah salah satu karyanya yang berhasil menyentuh hati ribuan pembaca. Cerita ini lahir dari kecintaan Raisyamq terhadap kota Yogyakarta — kota yang selalu punya cara untuk membuat siapa pun merasa pulang.</p>
+            <p>Dalam novel ini, Raisyamq tidak hanya menulis tentang cinta romantis, tetapi juga tentang proses penyembuhan diri, keberanian menghadapi masa lalu, dan makna dari memulai kembali dari nol.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- ===== FAQ ===== -->
+    <div id="faq">
+      <h2 class="sectionTitle">❓ FAQ — Pertanyaan yang Sering Ditanyakan</h2>
+      <p class="sectionSub">Informasi umum seputar novel dan website ini</p>
+
+      <div class="faqList">
+        <div class="faqItem">
+          <p class="faqQ">Apakah novel ini tersedia dalam versi cetak?</p>
+          <p class="faqA">Ya! Novel <em>New Resident Yogyakarta</em> tersedia untuk dibeli secara online. Kamu bisa langsung klik tombol "Beli Sekarang" atau kunjungi <a href="https://id.shp.ee/Wpwnkqj" target="_blank" rel="noreferrer">link pembelian ini</a>.</p>
+        </div>
+
+        <div class="faqItem">
+          <p class="faqQ">Genre apa yang ada di novel ini?</p>
+          <p class="faqA">Novel ini bergenre <strong>romantis kontemporer</strong> dengan tema penyembuhan diri (healing), perantauan, dan cinta yang datang tak terduga. Cocok untuk kamu yang menyukai cerita ringan namun penuh rasa dan makna.</p>
+        </div>
+
+        <div class="faqItem">
+          <p class="faqQ">Apakah ada komunitas pembaca untuk novel ini?</p>
+          <p class="faqA">Tentu! Website ini adalah rumah komunitas pembaca NRY. Kamu bisa berbagi quotes di halaman <a href="quotes.html">Quotes</a>, memberikan penilaian di <a href="rating.html">Rating</a>, atau mengirimkan perasaanmu lewat <a href="confession.html">Confession</a>.</p>
+        </div>
+
+        <div class="faqItem">
+          <p class="faqQ">Untuk usia berapa novel ini cocok dibaca?</p>
+          <p class="faqA">Novel ini cocok dibaca untuk remaja usia 16 tahun ke atas hingga dewasa. Kontennya ringan namun mengandung pesan yang dalam tentang cinta, luka, dan proses bangkit kembali.</p>
+        </div>
+
+        <div class="faqItem">
+          <p class="faqQ">Apakah ceritanya akan ada kelanjutan atau seri lainnya?</p>
+          <p class="faqA">Pantau terus update dari penulis dan ikuti perkembangan website ini untuk info terbaru mengenai karya-karya Raisyamq berikutnya.</p>
+        </div>
+
+        <div class="faqItem">
+          <p class="faqQ">Bagaimana cara menghubungi penulis atau tim NRY?</p>
+          <p class="faqA">Kamu bisa menghubungi kami melalui halaman <a href="contact.html">Contact</a> atau mengirim email ke <a href="mailto:m.agustyon@gmail.com">m.agustyon@gmail.com</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- ===== BELI NOVEL ===== -->
+    <div class="card">
+      <div class="buyRow">
+        <div>
+          <h2 class="sectionTitle" style="margin-bottom:6px;">🛒 Beli Novel New Resident Yogyakarta</h2>
+          <small style="color:var(--muted);">Baca kisah lengkap Deisya dan perjalanannya di Jogja.</small>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="https://id.shp.ee/Wpwnkqj" target="_blank" rel="noreferrer">Beli Sekarang</a>
+          <a class="btn secondary" href="https://id.shp.ee/Wpwnkqj" target="_blank" rel="noreferrer">Lihat Info</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;">
+      <small style="color:var(--muted);">© 2026 New Resident Yogyakarta</small>
+    </div>
+
+  </main>
+
+  <footer class="footerLinks">
+    <a href="about.html">About</a>
+    <span>•</span>
+    <a href="contact.html">Contact</a>
+    <span>•</span>
+    <a href="policy.html">Privacy Policy</a>
+  </footer>
+
 </body>
 </html>
